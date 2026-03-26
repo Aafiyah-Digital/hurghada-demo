@@ -41,6 +41,16 @@ export default function DesertSafari() {
             <li>✔ Bedouin camp experience</li>
             <li>✔ Desert sunset views</li>
           </ul>
+
+          {/* GREY CARD */}
+          <div className="bg-gray-100 p-4 rounded-lg">
+            <h3 className="font-semibold mb-2">Why people love this trip:</h3>
+            <ul className="space-y-1 text-gray-700">
+              <li>🏜️ Thrilling desert adventure</li>
+              <li>🐪 Unique cultural experience</li>
+              <li>🌅 Stunning sunset views</li>
+            </ul>
+          </div>
         </div>
 
         <div>

@@ -40,6 +40,16 @@ export default function DolphinHouse() {
             <li>✔ Boat trip</li>
             <li>✔ Lunch included</li>
           </ul>
+
+          {/* GREY CARD */}
+          <div className="bg-gray-100 p-4 rounded-lg">
+            <h3 className="font-semibold mb-2">Why people love this trip:</h3>
+            <ul className="space-y-1 text-gray-700">
+              <li>🐬 Chance to swim with dolphins</li>
+              <li>🌊 Crystal clear snorkeling spots</li>
+              <li>☀️ Relaxing day at sea</li>
+            </ul>
+          </div>
         </div>
 
         <div>
