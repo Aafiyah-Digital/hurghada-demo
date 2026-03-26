@@ -53,7 +53,7 @@ export default function Home() {
           </a>
 
           {/* DESERT SAFARI */}
-          <div className="group">
+          <a href="/excursions/desert-safari" className="group">
             <div className="rounded-xl overflow-hidden shadow hover:shadow-lg transition">
               <img
                 src="/images/desert-safari/card.jpg"
@@ -61,13 +61,13 @@ export default function Home() {
               />
               <div className="p-4">
                 <h3 className="text-xl font-semibold">Desert Safari 🏜️</h3>
-                <p className="text-gray-600">Coming soon</p>
+                <p className="text-gray-600">From $20 per person</p>
               </div>
             </div>
-          </div>
+          </a>
 
           {/* DOLPHIN HOUSE */}
-          <div className="group">
+          <a href="/excursions/dolphin-house" className="group">
             <div className="rounded-xl overflow-hidden shadow hover:shadow-lg transition">
               <img
                 src="/images/dolphin-house/card.jpg"
@@ -75,10 +75,10 @@ export default function Home() {
               />
               <div className="p-4">
                 <h3 className="text-xl font-semibold">Dolphin House 🐬</h3>
-                <p className="text-gray-600">Coming soon</p>
+                <p className="text-gray-600">From $30 per person</p>
               </div>
             </div>
-          </div>
+          </a>
         </div>
       </section>
 
@@ -94,6 +94,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* FOOTER */}
+      <footer className="text-center py-6 text-gray-500 text-sm">
+        © Aafiyah Digital 2026
+      </footer>
 
       <WhatsAppButton />
     </main>
