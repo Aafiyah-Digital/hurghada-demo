@@ -23,31 +23,30 @@ export default function BookingForm({ excursion }: { excursion: string }) {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    // Send to backend (email later)
     await fetch("/api/book", {
       method: "POST",
       body: JSON.stringify({ ...form, excursion }),
     });
 
-    // WhatsApp message
-    const message = `New Booking Request
+    const message = `
+New Booking Request
 
 Trip: ${excursion}
 Date: ${form.date}
-Adults: ${form.adults}
-Children: ${form.children}
-Hotel: ${form.hotel}
+Adults: ${form.adults || 0}
+Children: ${form.children || 0}
+Hotel: ${form.hotel || "Not provided"}
 
 Name: ${form.name}
 Phone: ${form.phone}
-Email: ${form.email}
+Email: ${form.email || "Not provided"}
 
-Notes: ${form.notes}`;
+Notes: ${form.notes || "None"}
+`;
 
-    window.open(
-      `https://wa.me/201XXXXXXXXX?text=${encodeURIComponent(message)}`,
-      "_blank",
-    );
+    const url = `https://api.whatsapp.com/send?phone=201080609297&text=${encodeURIComponent(message)}`;
+
+    window.open(url, "_blank");
 
     setSuccess(true);
   };
