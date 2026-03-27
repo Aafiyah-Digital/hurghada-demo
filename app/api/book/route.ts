@@ -2,29 +2,18 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
+  console.log("BOOKING API HIT");
+
   try {
     const data = await req.json();
 
-    const message = `
-New Booking Request
-
-Trip: ${data.excursion}
-Date: ${data.date}
-Time: ${data.time}
-Adults: ${data.adults}
-Children: ${data.children}
-Hotel: ${data.hotel}
-
-Name: ${data.name}
-Phone: ${data.phone}
-Email: ${data.email}
-
-Notes: ${data.notes}
-`;
+    console.log("DATA:", data);
+    console.log("SMTP USER:", process.env.SMTP_USER);
+    console.log("SMTP PASS EXISTS:", !!process.env.SMTP_PASS);
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: 587,
+      port: Number(process.env.SMTP_PORT) || 587,
       secure: false,
       auth: {
         user: process.env.SMTP_USER,
@@ -32,14 +21,12 @@ Notes: ${data.notes}
       },
     });
 
-    const info = await transporter.sendMail({
-      from: `"Hurghada Bookings" <hurghada@aafiyahdigital.com>`,
-      to: "hurghada@aafiyahdigital.com",
-      subject: "New Booking Request",
-      text: message,
+    await transporter.sendMail({
+      from: process.env.SMTP_USER,
+      to: "YOUR_EMAIL@gmail.com", // test first
+      subject: "TEST EMAIL",
+      text: "SMTP TEST",
     });
-
-    console.log("EMAIL SENT:", info);
 
     return NextResponse.json({ success: true });
   } catch (error) {
