@@ -24,19 +24,11 @@ export default function BookingForm({ excursion }: { excursion: string }) {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    await fetch("/api/book", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...form, excursion }),
-    });
-
     const message = `New Booking Request
 
 Trip: ${excursion}
 Date: ${form.date}
-Time: ${form.time}  
+Time: ${form.time}
 Adults: ${form.adults}
 Children: ${form.children}
 Hotel: ${form.hotel}
@@ -47,9 +39,15 @@ Email: ${form.email}
 
 Notes: ${form.notes}`;
 
-    const url = `https://api.whatsapp.com/send?phone=201080609297&text=${encodeURIComponent(message)}`;
+    // ✅ OPEN WHATSAPP FIRST (mobile-safe)
+    const whatsappUrl = `https://wa.me/201080609297?text=${encodeURIComponent(message)}`;
+    window.location.href = whatsappUrl;
 
-    window.open(url, "_blank");
+    // ✅ SEND EMAIL IN BACKGROUND (don't await)
+    fetch("/api/book", {
+      method: "POST",
+      body: JSON.stringify({ ...form, excursion }),
+    });
 
     setSuccess(true);
   };
