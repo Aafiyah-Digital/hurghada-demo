@@ -2,9 +2,10 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
-  const data = await req.json();
+  try {
+    const data = await req.json();
 
-  const message = `
+    const message = `
 New Booking Request
 
 Trip: ${data.excursion}
@@ -21,21 +22,28 @@ Email: ${data.email}
 Notes: ${data.notes}
 `;
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: 587,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
 
-  await transporter.sendMail({
-    from: process.env.SMTP_USER,
-    to: process.env.SMTP_USER,
-    subject: "New Booking Request",
-    text: message,
-  });
+    const info = await transporter.sendMail({
+      from: `"Hurghada Bookings" <hurghada@aafiyahdigital.com>`,
+      to: "hurghada@aafiyahdigital.com",
+      subject: "New Booking Request",
+      text: message,
+    });
 
-  return NextResponse.json({ success: true });
+    console.log("EMAIL SENT:", info);
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("EMAIL ERROR:", error);
+    return NextResponse.json({ error: "Email failed" }, { status: 500 });
+  }
 }
