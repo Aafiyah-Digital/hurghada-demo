@@ -9,6 +9,7 @@ New Booking Request
 
 Trip: ${data.excursion}
 Date: ${data.date}
+Time: ${data.time}
 Adults: ${data.adults}
 Children: ${data.children}
 Hotel: ${data.hotel}

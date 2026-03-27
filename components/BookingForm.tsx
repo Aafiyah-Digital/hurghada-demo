@@ -8,6 +8,7 @@ export default function BookingForm({ excursion }: { excursion: string }) {
     phone: "",
     email: "",
     date: "",
+    time: "Flexible",
     adults: 1,
     children: 0,
     hotel: "",
@@ -25,24 +26,26 @@ export default function BookingForm({ excursion }: { excursion: string }) {
 
     await fetch("/api/book", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ ...form, excursion }),
     });
 
-    const message = `
-New Booking Request
+    const message = `New Booking Request
 
 Trip: ${excursion}
 Date: ${form.date}
-Adults: ${form.adults || 0}
-Children: ${form.children || 0}
-Hotel: ${form.hotel || "Not provided"}
+Time: ${form.time}  
+Adults: ${form.adults}
+Children: ${form.children}
+Hotel: ${form.hotel}
 
 Name: ${form.name}
 Phone: ${form.phone}
-Email: ${form.email || "Not provided"}
+Email: ${form.email}
 
-Notes: ${form.notes || "None"}
-`;
+Notes: ${form.notes}`;
 
     const url = `https://api.whatsapp.com/send?phone=201080609297&text=${encodeURIComponent(message)}`;
 
@@ -91,6 +94,17 @@ Notes: ${form.notes || "None"}
         required
         className="w-full p-3 border rounded-lg"
       />
+
+      <select
+        name="time"
+        value={form.time}
+        onChange={handleChange}
+        className="w-full p-3 border rounded-lg"
+      >
+        <option value="Morning">Morning</option>
+        <option value="Afternoon">Afternoon</option>
+        <option value="Flexible">Flexible</option>
+      </select>
 
       <input
         type="number"
